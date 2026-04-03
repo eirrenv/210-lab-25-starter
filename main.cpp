@@ -9,10 +9,15 @@
 using namespace std;
 using namespace std::chrono;
 
-void printLine(string operation, int vectorVal, int listVal, int setVal);
+// scalable
+void printLine(string operation, long long vectorVal, long long listVal, long long setVal);
 
 int main() {
-    cout << "Operation" << "\tVector\tList\tSet" << endl;
+    cout << setw(12) << right << "Operation" 
+         << setw(15) << right << "Vector"
+         << setw(15) << right << "List"
+         << setw(15) << right << "Set"
+         << endl;
     string op;
     string codeToInsert;
     vector<string> data;
@@ -114,8 +119,12 @@ int main() {
     return 0;
 }
 
-void printLine(string operation, int vectorVal, int listVal, int setVal) {
-    cout << right << operation << "\t" << vectorVal << "\t" << listVal << "\t" << setVal << endl;
+void printLine(string operation, long long vectorVal, long long listVal, long long setVal) {
+    cout << setw(12) << right << operation 
+         << setw(15) << right << vectorVal 
+         << setw(15) << right << listVal 
+         << setw(15) << right << setVal 
+         << endl;
 }
 /* syntax examples:
 auto start = high_resolution_clock::now()
