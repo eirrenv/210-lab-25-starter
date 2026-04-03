@@ -24,44 +24,71 @@ int main() {
     auto start = high_resolution_clock::now();
     for (const auto &x : data) codeVector.push_back(x);
     auto end = high_resolution_clock::now();
-    auto vectorSpeed = duration_cast<milliseconds>(end - start);
+    auto vectorSpeed = duration_cast<nanoseconds>(end - start);
 
     // list reading time
     start = high_resolution_clock::now();
     for (const auto &x : data) codeList.push_back(x);
     end = high_resolution_clock::now();
-    auto listSpeed = duration_cast<milliseconds>(end - start);
+    auto listSpeed = duration_cast<nanoseconds>(end - start);
 
     // set reading time
     start = high_resolution_clock::now();
     for (const auto &x : data) codeSet.insert(x);
     end = high_resolution_clock::now();
-    auto setSpeed = duration_cast<milliseconds>(end - start);
+    auto setSpeed = duration_cast<nanoseconds>(end - start);
 
     // test speed prints
     cout << "Reading Speed:" << endl;
-    cout << "Vector speed: " << vectorSpeed.count() << " milliseconds" << endl;
-    cout << "List speed: " << listSpeed.count() << " milliseconds" << endl;
-    cout << "Set speed: " << setSpeed.count() << " milliseconds" << endl;
+    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
+    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
+    cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
 
     // vector sorting time
     start = high_resolution_clock::now();
     sort(codeVector.begin(), codeVector.end());
     end = high_resolution_clock::now();
-    vectorSpeed = duration_cast<milliseconds>(end - start);
+    vectorSpeed = duration_cast<nanoseconds>(end - start);
 
     // list sorting time
     start = high_resolution_clock::now();
     codeList.sort();
     end = high_resolution_clock::now();
-    listSpeed = duration_cast<milliseconds>(end - start);
+    listSpeed = duration_cast<nanoseconds>(end - start);
 
     // test sort prints, set already sorted
     cout << "Sorting speed:" << endl;
-    cout << "Vector speed: " << vectorSpeed.count() << " milliseconds" << endl;
-    cout << "List speed: " << listSpeed.count() << " milliseconds" << endl;
-    cout << "Set speed: " << "-1" << " milliseconds" << endl;
+    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
+    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
+    cout << "Set speed: " << "-1" << " nanoseconds" << endl;
 
+    codeToInsert = "TESTCODE";
+
+    // vector inserting time
+    start = high_resolution_clock::now();
+    codeVector.insert(codeVector.begin() + data.size() / 2, codeToInsert);
+    end = high_resolution_clock::now();
+    vectorSpeed = duration_cast<nanoseconds>(end - start);
+
+    // list inserting time
+    start = high_resolution_clock::now();
+    auto it = codeList.begin();
+    advance(it, codeList.size() / 2);
+    codeList.insert(it, codeToInsert);
+    end = high_resolution_clock::now();
+    listSpeed = duration_cast<nanoseconds>(end - start);
+
+    // set inserting time
+    start = high_resolution_clock::now();
+    codeSet.insert(codeToInsert);
+    end = high_resolution_clock::now();
+    setSpeed = duration_cast<nanoseconds>(end - start);
+
+    // test insert prints
+    cout << "Inserting speed:" << endl;
+    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
+    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
+    cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
     
 
 
@@ -71,6 +98,6 @@ int main() {
 /* syntax examples:
 auto start = high_resolution_clock::now()
 auto end = high_resolution_clock::now()
-auto duration = duration_cast<milliseconds>(end - start)
-duration.count() references elapsed milliseconds
+auto duration = duration_cast<nanoseconds>(end - start)
+duration.count() references elapsed nanoseconds
 */
