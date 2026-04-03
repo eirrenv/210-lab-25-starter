@@ -89,8 +89,32 @@ int main() {
     cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
     cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
     cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
-    
 
+    // vector deletion time
+    start = high_resolution_clock::now();
+    codeVector.erase(codeVector.begin() + codeVector.size() / 2);
+    end = high_resolution_clock::now();
+    vectorSpeed = duration_cast<nanoseconds>(end - start);
+    
+    // list deletion time
+    start = high_resolution_clock::now();
+    it = codeList.begin();
+    advance(it, codeList.size() / 2);
+    codeList.erase(it);
+    end = high_resolution_clock::now();
+    listSpeed = duration_cast<nanoseconds>(end - start);
+
+    // set deletion time
+    start = high_resolution_clock::now();
+    codeSet.erase(codeToInsert);
+    end = high_resolution_clock::now();
+    setSpeed = duration_cast<nanoseconds>(end - start);
+
+    // test deletion prints
+    cout << "Deletion speed:" << endl;
+    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
+    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
+    cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
 
     return 0;
 }
