@@ -5,12 +5,15 @@
 #include <set>
 #include <fstream>
 #include <algorithm> // vector sort :)
+#include <iomanip>
 using namespace std;
 using namespace std::chrono;
 
-int main() {
-    
+void printLine(string operation, int vectorVal, int listVal, int setVal);
 
+int main() {
+    cout << "Operation" << "\tVector\tList\tSet" << endl;
+    string op;
     string codeToInsert;
     vector<string> data;
     vector<string> codeVector;
@@ -38,11 +41,9 @@ int main() {
     end = high_resolution_clock::now();
     auto setSpeed = duration_cast<nanoseconds>(end - start);
 
-    // test speed prints
-    cout << "Reading Speed:" << endl;
-    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
-    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
-    cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
+    // reading time print
+    op = "\tRead";
+    printLine(op, vectorSpeed.count(), listSpeed.count(), setSpeed.count());
 
     // vector sorting time
     start = high_resolution_clock::now();
@@ -57,10 +58,8 @@ int main() {
     listSpeed = duration_cast<nanoseconds>(end - start);
 
     // test sort prints, set already sorted
-    cout << "Sorting speed:" << endl;
-    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
-    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
-    cout << "Set speed: " << "-1" << " nanoseconds" << endl;
+    op = "\tSort";
+    printLine(op, vectorSpeed.count(), listSpeed.count(), -1);
 
     codeToInsert = "TESTCODE";
 
@@ -85,10 +84,8 @@ int main() {
     setSpeed = duration_cast<nanoseconds>(end - start);
 
     // test insert prints
-    cout << "Inserting speed:" << endl;
-    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
-    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
-    cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
+    op = "\tInsert";
+    printLine(op, vectorSpeed.count(), listSpeed.count(), setSpeed.count());
 
     // vector deletion time
     start = high_resolution_clock::now();
@@ -111,14 +108,15 @@ int main() {
     setSpeed = duration_cast<nanoseconds>(end - start);
 
     // test deletion prints
-    cout << "Deletion speed:" << endl;
-    cout << "Vector speed: " << vectorSpeed.count() << " nanoseconds" << endl;
-    cout << "List speed: " << listSpeed.count() << " nanoseconds" << endl;
-    cout << "Set speed: " << setSpeed.count() << " nanoseconds" << endl;
+    op = "\tDelete";
+    printLine(op, vectorSpeed.count(), listSpeed.count(), setSpeed.count());
 
     return 0;
 }
 
+void printLine(string operation, int vectorVal, int listVal, int setVal) {
+    cout << right << operation << "\t" << vectorVal << "\t" << listVal << "\t" << setVal << endl;
+}
 /* syntax examples:
 auto start = high_resolution_clock::now()
 auto end = high_resolution_clock::now()
